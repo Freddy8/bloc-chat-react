@@ -16,21 +16,17 @@ class RoomList extends Component {
       const room = snapshot.val();
       room.key = snapshot.key;
       this.setState({ rooms: this.state.rooms.concat( room ) })
-      console.log(room);
+      console.log(room["name"]);
     });
   }
 
   render() {
-    let room_list = this.state.rooms.map( (room, index) =>
-      <li key={index}>
-        {room.name}
-        </li>
-  )
-
     return (
       <div>
         <ul className="list_of_room_names">
-          {room_list}
+          {this.state.rooms.map( (room, index) => (
+            <li key={index}> {room.name} </li>
+          ))}
         </ul>
       </div>
     );
