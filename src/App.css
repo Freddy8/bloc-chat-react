@@ -2,27 +2,63 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 250px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #7FDBFF; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+.header {
+  text-decoration-style: wavy;
+  color: red;
+  font-size: 24px;
+  text-align: center;
+
+}
+
+.list_of_room_names{
+  width:130px;
+  list-style-type: none;
+}
+
+#Room-Names{
+  background-color: gray;
+  border:none;
+  color: black;
+  padding: 15px 32px;
+  margin: 2px;
+  margin-left: -22px;
+  text-align: center;
+  text-decoration: none;
+  font: 16px;
+}
+
+input {
+  margin-left: -22px;
+}
+
+#Delete-Button:hover {
+  color:white;
+  background-color: red;
+}
+
+#Room-Names:hover{
   color: white;
+  background-color: red;
 }
 
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.messages{
+  height: 713px; /* Full-height: remove this if you want "auto" height */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  right: 100px;
+  background-color: #C2FCE0; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
 }

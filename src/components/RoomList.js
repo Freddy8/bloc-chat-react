@@ -11,8 +11,10 @@ class RoomList extends Component {
       newRoomName: ''
     };
     this.roomsRef = this.props.firebase.database().ref('rooms');
+    this.roomsRef.on('child_removed', snapshot => {
+      this.setState({ rooms: this.state.rooms.filter( room => room.key !== snapshot.key ) })
+    });
   }
-
 
   componentDidMount() {
     this.roomsRef.on('child_added', snapshot => {
@@ -36,8 +38,18 @@ class RoomList extends Component {
     }
   }
 
+  setRoom(room, e) {
+    e.preventDefault();
+    this.props.activeRoom(room);
+  }
+
+
   handleChange(e) {
     this.setState({newRoomName: e.target.value});
+  }
+
+  removeRoom(room) {
+    this.roomsRef.child(room.key).remove();
   }
 
   render() {
@@ -45,13 +57,14 @@ class RoomList extends Component {
       <div>
         <ul className="list_of_room_names">
           {this.state.rooms.map( (room, index) => (
-            <li key={index}> {room.name} </li>
+            <li key={index}>  </li>
           ))}
           <form onSubmit={this.createRoom}>
 
             <input
               type="text"
               placeholder="Lair"
+              value={this.props.createRoom}
               onChange={this.handleChange}
              />
              <br />
@@ -60,7 +73,14 @@ class RoomList extends Component {
                value='Create room'
               />
           </form>
-
+          {this.state.rooms.map ( (room, index) =>
+          <a href={room.name} key={index}>
+            <li key={index}>
+              <button id="Room-Names" onClick={ (e) => this.setRoom(room, e) } className="room-name">{ room.name }</button>
+              <button id="Delete-Button" onClick={ (e) => this.removeRoom(room) } className="remove remove-room=button">&times;</button>
+            </li>
+          </a>
+        )}
         </ul>
       </div>
     );
