@@ -23,6 +23,7 @@ class App extends Component {
       activeMessage: ""
     };
     this.changeRoom = this.changeRoom.bind(this);
+    this.changeMessage = this.changeMessage.bind(this);
   }
 
   changeRoom(room) {
@@ -40,8 +41,8 @@ class App extends Component {
           <div className="header"> Bloc Chat </div>
           <RoomList
             firebase={firebase}
-            activeRoom={this.changeRoom}
-            changeRoom={this.changeRoom.bind(this)}
+            activeRoom={this.state.changeRoom}
+            changeRoom={this.changeRoom}
           />
         </div>
         <div className="message">

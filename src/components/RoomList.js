@@ -26,7 +26,7 @@ class RoomList extends Component {
   }
 
   createRoom(e) {
-    e.preventDefault();
+     e.preventDefault();
     if (this.state.newRoomName === ''){
       alert('Name of New Room cannot be empty');
     } else {
@@ -34,13 +34,13 @@ class RoomList extends Component {
         name: this.state.newRoomName
       });
       this.setState({newRoomName: ''})
-      e.target.reset()
+
     }
   }
 
   setRoom(room, e) {
-    e.preventDefault();
-    this.props.activeRoom(room);
+    //e.preventDefault();
+    this.props.changeRoom(room);
   }
 
 
@@ -59,7 +59,7 @@ class RoomList extends Component {
           {this.state.rooms.map( (room, index) => (
             <li key={index}>  </li>
           ))}
-          <form onSubmit={this.createRoom}>
+          <div>
 
             <input
               type="text"
@@ -68,18 +68,19 @@ class RoomList extends Component {
               onChange={this.handleChange}
              />
              <br />
-             <input
-               type='submit'
-               value='Create room'
-              />
-          </form>
-          {this.state.rooms.map ( (room, index) =>
-          <a href={room.name} key={index}>
-            <li key={index}>
-              <button id="Room-Names" onClick={ (e) => this.setRoom(room, e) } className="room-name">{ room.name }</button>
-              <button id="Delete-Button" onClick={ (e) => this.removeRoom(room) } className="remove remove-room=button">&times;</button>
-            </li>
-          </a>
+             <button onClick={this.createRoom} >
+               Create room
+              </button>
+          </div>
+          {this.state.rooms.map ( (room, index) => (
+
+            <div key={index} >
+              <button onClick={ () => this.setRoom(room) }>{ room.name }</button>
+              <button onClick={ () => this.removeRoom(room) }>x</button>
+            </div>
+          )
+
+
         )}
         </ul>
       </div>
