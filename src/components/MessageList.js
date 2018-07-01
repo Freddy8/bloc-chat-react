@@ -7,14 +7,11 @@ class MessageList extends Component {
 
 
       this.state = {
-        username: "",
-        content: "",
-        sentAt: "",
-        updatedTime: "",
         messages: [],
         newMessage: "",
       };
-      this.enter = this.enter.bind(this);
+
+      this.createNewMessage = this.createNewMessage.bind(this);
       this.handleChanges = this.handleChanges.bind(this);
 
       this.messagesRef = this.props.firebase.database().ref('Messages');
@@ -28,21 +25,24 @@ class MessageList extends Component {
     this.messagesRef.on('child_added', snapshot => {
       let msg = snapshot.val();
       msg.key = snapshot.key;
+      console.log(msg);
       this.setState({ messages: this.state.messages.concat(msg)});
     });
 
   }
 
-  enter(e) {
+  createNewMessage(e) {
     //e.preventDefault();
     if (this.state.newMessage === ''){
       alert('Name of New Room cannot be empty');
     } else {
       this.messagesRef.push({
         content: this.state.newMessage,
-        room: this.props.activeRoom.key,
+        roomId: this.props.activeRoom.key,
+        sentAt: "",
+        userName: "",
       });
-      this.setState({newMessage: ''})
+      this.setState({newMessage: ""})
     }
   }
 
@@ -57,35 +57,36 @@ class MessageList extends Component {
 
     removeMessage(msg) {
       this.messagesRef.child(msg.key).remove();
-
     }
 
   render() {
     return(
       <div>
+        <h2>{this.props.activeRoom.name}</h2>
         <ul>
-          {this.state.messages.map( (message, index) =>
+          {this.state.messages.map((message, index) =>
           <li key={index}>
-            <p >{message.username}</p>
+            <p>{message.username}</p>
           </li>
         )}
-        {this.state.messages.map ( (msg, index) => (
+        {this.state.messages.filter( (message)=> {
+          message.roomId === this.props.activeRoom.key
+        }).map ( (msg, index) => (
           <div key={index}>
-            <button
-            onClick={ () => this.setMessage(msg)}>{msg.content}</button>
+            <button>{msg.content}</button>
             <button onClick={ () => this.removeMessage(msg)}></button>
-            </div>
+          </div>
           )
       )}
-          <div >
+          <div>
             <input
               type="text"
               placeholder="Chat"
-              value={this.props.enter}
+              value={this.state.newMessage}
               onChange={this.handleChanges}
             />
             <br />
-            <button onClick={this.enter}>Send</button>
+            <button onClick={this.createNewMessage}>Send</button>
             </div>
         </ul>
       </div>
