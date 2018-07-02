@@ -64,14 +64,9 @@ class MessageList extends Component {
       <div>
         <h2>{this.props.activeRoom.name}</h2>
         <ul>
-          {this.state.messages.map((message, index) =>
-          <li key={index}>
-            <p>{message.username}</p>
-          </li>
-        )}
-        {this.state.messages.filter( (message)=> {
+        {this.state.messages.filter((message)=>
           message.roomId === this.props.activeRoom.key
-        }).map ( (msg, index) => (
+        ).map((msg, index) => (
           <div key={index}>
             <button>{msg.content}</button>
             <button onClick={ () => this.removeMessage(msg)}></button>
