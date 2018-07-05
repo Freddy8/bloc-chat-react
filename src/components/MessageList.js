@@ -34,7 +34,7 @@ class MessageList extends Component {
   createNewMessage(e) {
     //e.preventDefault();
     if (this.state.newMessage === ''){
-      alert('Name of New Room cannot be empty');
+      alert('Message cannot be empty');
     } else {
       this.messagesRef.push({
         content: this.state.newMessage,

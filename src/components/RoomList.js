@@ -8,7 +8,7 @@ class RoomList extends Component {
 
     this.state = {
       rooms: [],
-      newRoomName: ''
+      newRoomName: ""
     };
     this.roomsRef = this.props.firebase.database().ref('rooms');
     this.roomsRef.on('child_removed', snapshot => {
@@ -20,26 +20,24 @@ class RoomList extends Component {
     this.roomsRef.on('child_added', snapshot => {
       const room = snapshot.val();
       room.key = snapshot.key;
-      this.setState({ rooms: this.state.rooms.concat( room ) })
+      this.setState({ rooms: this.state.rooms.concat( room ) });
       console.log(room);
     });
   }
 
   createRoom(e) {
-     e.preventDefault();
+     //e.preventDefault();
     if (this.state.newRoomName === ''){
       alert('Name of New Room cannot be empty');
     } else {
       this.roomsRef.push({
         name: this.state.newRoomName
       });
-      this.setState({newRoomName: ''})
-
     }
+    this.setState({newRoomName: ""})
   }
 
-  setRoom(room, e) {
-    //e.preventDefault();
+  setRoom(room) {
     this.props.changeRoom(room);
   }
 
@@ -56,31 +54,26 @@ class RoomList extends Component {
     return (
       <div>
         <ul className="list_of_room_names">
-          {this.state.rooms.map( (room, index) => (
-            <li key={index}>  </li>
-          ))}
           <div>
-
             <input
               type="text"
               placeholder="Lair"
-              value={this.props.createRoom}
+              value={this.state.newRoomName}
               onChange={this.handleChange}
              />
+
              <br />
-             <button onClick={this.createRoom} >
+             <button onClick={this.createRoom}>
                Create room
               </button>
           </div>
-          {this.state.rooms.map ( (room, index) => (
+          {this.state.rooms.map( (room, index) => (
 
             <div key={index} >
               <button onClick={ () => this.setRoom(room) }>{ room.name }</button>
               <button onClick={ () => this.removeRoom(room) }>x</button>
             </div>
           )
-
-
         )}
         </ul>
       </div>
