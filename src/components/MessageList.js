@@ -40,7 +40,7 @@ class MessageList extends Component {
         content: this.state.newMessage,
         roomId: this.props.activeRoom.key,
         sentAt: "",
-        userName: "",
+        userName: this.props.user ? this.props.user.displayName : 'Guest',
       });
       this.setState({newMessage: ""})
     }
@@ -67,8 +67,8 @@ class MessageList extends Component {
         {this.state.messages.filter((message)=>
           message.roomId === this.props.activeRoom.key
         ).map((msg, index) => (
-          <div key={index}>
-            <button>{msg.content}</button>
+          <div key={index} className="messages">
+            <li>{msg.userName}: {msg.content}</li>
             <button onClick={ () => this.removeMessage(msg)}></button>
           </div>
           )

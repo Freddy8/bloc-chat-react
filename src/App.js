@@ -43,6 +43,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+
         <div className="sidenav">
           <div className="header"> Bloc Chat </div>
           <User
@@ -56,7 +57,8 @@ class App extends Component {
             changeRoom={this.changeRoom}
           />
         </div>
-        <div className="message">
+
+        <div>
           <MessageList
             firebase={firebase}
             activeRoom={this.state.activeRoom}
@@ -66,6 +68,7 @@ class App extends Component {
             user={this.state.currentUser}
             />
           </div>
+
       </div>
     );
   }

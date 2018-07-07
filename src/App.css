@@ -54,11 +54,15 @@ input {
 }
 
 .messages{
-  height: 713px; /* Full-height: remove this if you want "auto" height */
-  z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
-  right: 100px;
-  background-color: #C2FCE0; /* Black */
-  overflow-x: hidden; /* Disable horizontal scroll */
+  border-top: .5px solid gray;
+  background-color: #76D7C4;
+  width: auto;
+  margin-left: 210px;
   padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.messages li {
+  display: inline;
 }
